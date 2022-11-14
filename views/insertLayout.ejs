@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body class="bg-dark text-success">
+
+    <div class="container px-5">
+        <div class="d-md-flex bg-dark text-success my-5">
+
+            <div class="d-flex bg-dark text-success container">
+                <div class="input-group mb-3">
+                    <form method="post" class="form">
+                        <div class="inputs">
+                            <input type="text" class="form-control bg-dark text-success my-5"
+                                placeholder="Enter the table name" name="table" autocomplete="off">
+                                <div class="keyValueInput">
+                                    <div class="keyValue d-flex">
+                                        <input type="text" class="form-control bg-dark text-success" placeholder="key"
+                                            name="attributes" autocomplete="off">
+                                        <input type="text" class="form-control bg-dark text-success" placeholder="value"
+                                            name="values" autocomplete="off">
+                                    </div>
+                                </div>
+                        </div>
+
+                        <div class="d-flex justify-content-space-between my-3">
+                            <button class="btn btn-secondary add" type="button">Add</button>
+                            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">send</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="container">
+                <h3>Output:</h3>
+                <%- body %>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <script>
+        const path = new URL(window.location.href).pathname;
+        const keyValueInput = document.querySelector(".keyValueInput");
+        const addbtn = document.querySelector(".add");
+
+        document.querySelector(".form").setAttribute("action", path);
+
+        function keyValuePair() {
+            let div = document.createElement("div");
+            let key = document.createElement("input");
+            let value = document.createElement("input");
+
+            key.classList.add("form-control","bg-dark","text-success");
+            key.type = "text";
+            key.placeholder = "key";
+            key.name = "attributes";
+
+            value.classList.add("form-control","bg-dark","text-success");
+            value.type = "text";
+            value.placeholder = "value";
+            value.name = "values";
+
+            div.classList.add("keyValue","d-flex");
+            div.appendChild(key);
+            div.appendChild(value);
+            
+            keyValueInput.appendChild(div);
+        }
+
+        addbtn.addEventListener("click", function () {
+            keyValuePair();
+        });
+    </script>
+</body>
+
+</html>

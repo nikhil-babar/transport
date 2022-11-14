@@ -1,0 +1,26 @@
+<div class="container">
+    <table class="table table-striped table-dark table-hover w-75">
+        <thead>
+          <tr>
+            <% for(var i=0 ; i < header.length ; i++) {%>
+              <th scope="col">
+                <%= header[i] %>
+              </th>
+              <% } %>
+  
+          </tr>
+        </thead>
+        <tbody>
+          <% for(var i=0 ; i < list.length ; i++) {%>
+            <tr>
+              <% for(var j=0 ; j <=list[i].length ; j++) {%>
+                <td class="text-success">
+                  <%=list[i][j]%>
+                </td>
+                <% } %>
+            </tr>
+            <% } %>
+  
+        </tbody>
+      </table>
+</div>
