@@ -1,16 +1,18 @@
 const express = require('express');
 const app = express();
-const layouts = require('express-ejs-layouts');
-const readRouter = require('./routes/read');
-const insertRouter = require('./routes/insert');
+const cookieParser = require("cookie-parser");
+
+const loginRouter = require('./routes/login');
 const indexRouter = require('./routes/index');
+const userRouter = require('./routes/user');
 
 app.set('view engine', 'ejs');
-app.use(layouts);
-app.use("/", indexRouter)
-app.use("/read", readRouter);
-app.use("/insert", insertRouter);
-app.set('layout', 'readLayout', 'insertLayout', 'index');
+app.use("/login", loginRouter);
+app.use("/index", indexRouter);
+app.use("/user", userRouter);
+
+app.use(express.static('public'));
+app.use(cookieParser());
 
 app.listen(3000, function () {
     console.log("server on 3000");
