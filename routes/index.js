@@ -1,13 +1,56 @@
 const express = require('express');
 const cookie = require('cookie-parser');
-const jwt = require('jsonwebtoken');
 const router = express.Router();
 const auth = require("../middleware/authentication")
+const routes = require('../models/routeModel');
+const vehicles = require('../models/vehicleModel');
+const journey = require('../models/journeyModel');
+const customers = require('../models/customerModel');
+const bodyParser = require("body-parser");
+
+router.use(bodyParser.urlencoded({extended: true}));
 
 router.use(cookie());
 
-router.get("/", auth, (req, res)=>{
+router.get("/", auth, async (req, res)=>{
+    try {
+        const routeData = await getData(routes, {});
+        const vehicleData = await getData(vehicles, {});
+
+        res.render("index");
+    } catch (error) {
+        console.log(error);
+    }
+})
+
+router.post("/", auth, async (req, res)=>{
+    try {
+        const route = await getData(routes, {source: req.body.source, destination: req.body.destination});
+        const vehicle = await getData(vehicles, {type: req.body.type});
+        const customer = await getData(customers, {name: req.user.name});
+
+        console.log(customer);
+        console.log(route);
+        console.log(vehicle);
+        console.log(req.user);
+
+        if(route == null|| vehicle == null|| customer == null) res.send("error");
+
+        else{
+            const journeyData = new journey({
+                route: route[0],
+                vehicle: vehicle[0],
+                customer: customer[0]
+            })
+
+            journeyData.save();
     
+            res.send("successful");
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
 })
 
 router.delete("/", auth, (req, res)=>{
@@ -15,6 +58,25 @@ router.delete("/", auth, (req, res)=>{
 
     res.redirect("/login");
 })
+
+async function getData(model, parameter) {
+    return new Promise((resolve, reject) => {
+        model.find(parameter, function (err, data) {
+            if(err) reject(err);
+
+            else{
+                if(data.length == 0){
+                    resolve(null);
+                }
+                else{
+                    const list = [];
+
+                    resolve(data);
+                }
+            }
+        })
+    })
+}
 
 
 module.exports = router;

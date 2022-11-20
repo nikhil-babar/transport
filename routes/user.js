@@ -19,8 +19,8 @@ router.post("/", async function (req, res) {
     try {
         const data = req.body;
         const user = {
+            '_id': data.email,
             'name': data.name,
-            'email': data.email,
             'age': data.age,
             'contactNo': data.contactNo,
             'userName': data.userName,

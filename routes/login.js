@@ -30,7 +30,6 @@ router.post("/", async function (req, res) {
         }
 
         else{
-            // delete data.password;
             const token = jwt.sign(data.toJSON(), process.env.ACCESS_TOKEN_SECRET);
 
             res.cookie("token",token,{
@@ -46,7 +45,7 @@ router.post("/", async function (req, res) {
     }
 })
 
-async function checkUser(userName, password) {
+function checkUser(userName, password) {
     return new Promise((resolve, reject) => {
         Customer.find({userName: userName, password: password}, function (err, data) {
             if(err) reject(err);

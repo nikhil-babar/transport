@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
-const account = require('./accountModel');
 
 const CustomerSchema = new mongoose.Schema({
+    _id: String,
     name: String,
-    email: String,
     age: Number,
     contactNo: {
         type: Number,
