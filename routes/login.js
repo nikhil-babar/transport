@@ -36,7 +36,7 @@ router.post("/", async function (req, res) {
                 httpOnly: true
             });
 
-            res.redirect("/index");
+            res.redirect("/");
         }
 
     } catch (error) {

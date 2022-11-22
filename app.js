@@ -8,7 +8,7 @@ const userRouter = require('./routes/user');
 
 app.set('view engine', 'ejs');
 app.use("/login", loginRouter);
-app.use("/index", indexRouter);
+app.use("/", indexRouter);
 app.use("/user", userRouter);
 
 app.use(express.static('public'));

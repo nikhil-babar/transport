@@ -10,6 +10,6 @@ module.exports = function auth(req, res, next) {
         
     } catch (error) {
         res.clearCookie("token");
-        res.redirect("/login");
+        res.render("preLogin");
     }
 }

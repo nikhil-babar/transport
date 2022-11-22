@@ -11,14 +11,13 @@
 
     <button class="logout btn btn-success text-light">logout</button>
 
-    <form action="/index" method="post">
+    <form action="/" method="post">
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">Source</label>
           <input type="text" class="form-control" name="source">
-          <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
         </div>
         <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Password</label>
+          <label for="exampleInputPassword1" class="form-label">Destination</label>
           <input type="text" class="form-control" name="destination">
         </div>
         <div class="mb-3">
@@ -33,7 +32,7 @@
         const logout = document.querySelector(".logout");
 
         logout.addEventListener("click", ()=>{
-            fetch("/index", {
+            fetch("/", {
                 method: 'delete'
             }).then(()=>location.reload())
             .catch((err)=>console.log(err));

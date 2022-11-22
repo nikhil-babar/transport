@@ -56,7 +56,7 @@ router.post("/", auth, async (req, res)=>{
 router.delete("/", auth, (req, res)=>{
     res.clearCookie("token");
 
-    res.redirect("/login");
+    res.redirect("/");
 })
 
 async function getData(model, parameter) {
