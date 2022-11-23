@@ -1,42 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    html {
+      background-color: #E4E9FD;
+      background-image: -webkit-linear-gradient(65deg, yellow 50%, #E4E9FD 50%);
+
+      min-height: 1000px;
+      font-family: 'helvetica neue';
+      font-size: x-large;
+    }
+
+    body {
+      align-items: center;
+      /* background:url("images/taxiPic.jpg")center no-repeat; */
+    }
+
+    .source {
+      display: block;
+      margin: auto;
+      /* font-family: 'Source Serif Pro', serif; */
+    }
+
+    .destination {
+      display: block;
+      margin: auto;
+      /* font-family: 'Source Serif Pro', serif; */
+    }
+
+    .vehicle {
+      display: block;
+      margin: auto;
+      /* font-family: 'Source Serif Pro', serif; */
+    }
+
+    .box {
+      padding: 20px;
+
+      margin: auto;
+      margin-top: 200px;
+      /* margin: 100px 100px; */
+      background: rgb(0, 213, 255);
+      box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
+      /* height: 80%;
+    width: 50%; */
+      max-width: max-content;
+      max-width: max-content;
+    }
+
+    /*   
+  .image{
+    max-width: fit-content;
+    max-height: fit-content;
+  } */
+
+    #heading {
+      background-color: #A683E3;
+      text-align: center;
+    }
+
+    .item {
+
+      /* height: 400px; */
+      /* width: 50%;  */
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #F1F1F1;
+    }
+
+    select {
+      width: 200px;
+      height: 40px;
+    }
+
+
+    form {
+      font-size: 1rem;
+
+      border: none;
+      /* width: 50%; */
+      text-align: center;
+      margin: auto;
+      /* margin-left: 20px; */
+    }
+
+    button {
+      /* min-height: 50px; */
+      /* width: 50px; */
+      border-color: transparent;
+      background-color: #ffffff;
+      color: rgb(0, 0, 0);
+      /* font-size: 30px; */
+      border-radius: 10px;
+      padding-bottom: 6px;
+      margin-bottom: 6px;
+      font-family: 'Source Serif Pro', serif;
+    }
+
+    ::placeholder {
+      color: grey;
+      opacity: 1;
+      font-family: 'Source Serif Pro', serif;
+    }
+  </style>
 </head>
+
 <body>
+  <div class="d-flex justify-content-between">
     <h1>Welcome to Transport website</h1>
 
     <button class="logout btn btn-success text-light">logout</button>
+  </div>
 
-    <form action="/" method="post">
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Source</label>
-          <input type="text" class="form-control" name="source">
-        </div>
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Destination</label>
-          <input type="text" class="form-control" name="destination">
-        </div>
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Vehicle type</label>
-          <input type="text" class="form-control" name="type">
-        </div>
+  <!-- <form action="/" method="post">
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Source</label>
+      <input type="text" class="form-control" name="source">
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Destination</label>
+      <input type="text" class="form-control" name="destination">
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Vehicle type</label>
+      <input type="text" class="form-control" name="type">
+    </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form> -->
 
-    <script>
-        const logout = document.querySelector(".logout");
+  <form action="/" method="post" class="item">
+    <div class="source">
+      <label for="source">Select Source</label>
+      <select name="source" id="source">
+        <% for(var i=0;i<sourceArray.length;i++ ) { %>
+          <option value=<%=sourceArray[i]%>><%=sourceArray[i]%>
+          </option>
+          <% } %>
+      </select>
+    </div>
+    <div class="destination">
+      <label for="destination">Select Destination</label>
+      <select name="destination" id="destination">
+        <% for(var i=0;i<destinationArray.length;i++ ) { %>
+          <option value=<%=destinationArray[i]%>><%=destinationArray[i]%>
+          </option>
+          <% } %>
+      </select>
+    </div>
+    <div class="vehicle">
+      <label for="vehicle">Select Vehicle</label>
+      <select name="type" id="vehicle">
+        <% for(var i=0;i<vehicleArray.length;i++ ) { %>
+          <option value=<%=vehicleArray[i]%>><%=vehicleArray[i]%>
+          </option>
+          <% } %>
+      </select>
+    </div>
+    <div class="submitButton">
+      <button type="submit" name="button">Book Ride</button>
+    </div>
 
-        logout.addEventListener("click", ()=>{
-            fetch("/", {
-                method: 'delete'
-            }).then(()=>location.reload())
-            .catch((err)=>console.log(err));
-        })
-    </script>
+  </form>
+  </div>
+
+  <script>
+    const logout = document.querySelector(".logout");
+
+    logout.addEventListener("click", () => {
+      fetch("/", {
+        method: 'delete'
+      }).then(() => location.reload())
+        .catch((err) => console.log(err));
+    })
+  </script>
 </body>
+
 </html>

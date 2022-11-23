@@ -17,7 +17,18 @@ router.get("/", auth, async (req, res)=>{
         const routeData = await getData(routes, {});
         const vehicleData = await getData(vehicles, {});
 
-        res.render("index");
+        let sourceArray = [], destinationArray = [], vehicleArray = [];
+
+        routeData.forEach(element => {
+            sourceArray.push(element.source);
+            destinationArray.push(element.destination);
+        });
+
+        vehicleData.forEach(element => {
+            vehicleArray.push(element.type);
+        })
+
+        res.render("index", {sourceArray: sourceArray, destinationArray: destinationArray, vehicleArray: vehicleArray});
     } catch (error) {
         console.log(error);
     }
@@ -29,10 +40,9 @@ router.post("/", auth, async (req, res)=>{
         const vehicle = await getData(vehicles, {type: req.body.type});
         const customer = await getData(customers, {name: req.user.name});
 
-        console.log(customer);
-        console.log(route);
-        console.log(vehicle);
-        console.log(req.user);
+        console.log(req.body.source);
+        console.log(req.body.destination);
+        console.log(req.body.type);
 
         if(route == null|| vehicle == null|| customer == null) res.send("error");
 
